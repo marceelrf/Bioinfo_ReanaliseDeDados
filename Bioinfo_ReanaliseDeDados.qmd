@@ -2,17 +2,71 @@
 title: "Reanálise de dados"
 author: "Marcel Ferreira"
 date: "`r Sys.Date()`"
-format: revealjs
+format:
+  revealjs:
+    incremental: true
 ---
 
 ## Outline
 
-- Motivação
+::: nonincremental
+-   Motivação
 
-- Bases de dados
+-   Bases de dados
 
-- GEO2R
+-   GEO2R
 
-- ArrayExpress
+-   ArrayExpress
 
-- TCGA
+-   TCGA
+:::
+
+## About me
+
+-   Medical Physicist (2011-2014);
+
+-   Master of Science in Biotechnology (2017);
+
+-   PhD in Biotechnology (2023);
+
+## About me
+
+::: columns
+::: {.column width="50%"}
+I started in 2013 during my undergraduate degree with protein structure.
+:::
+
+::: {.column width="50%"}
+[![Experimental SAXS curve of SCLam and fitting procedure with simulated curves.](images/12010_2015_1743_Fig4_HTML.webp){alt="Experimental SAXS curve of SCLam and fitting procedure with simulated curves."}](https://link.springer.com/article/10.1007/s12010-015-1743-7)
+:::
+:::
+
+## Aboute me
+
+-   Since 2015 I work focused on bone tissue, especially with cell-biomaterial interaction;
+
+-   Masters: [`Kinome`](https://pamgene.com/technology/);
+
+-   PhD: `Transcriptome`/`Proteome`/`Epigenome`;
+
+## Data
+
+[![Data to wisdom](images/Data-Wisdom-768x250.jpg)](https://theifactory.com/news/gaining-wisdom-from-data/)
+
+## Data
+
+[![Data to conspiracy](images/Data-Wisdom-fun.jpg)](https://www.linkedin.com/pulse/data-information-knowledge-insights-achin-gupta/)
+
+## Bioinformatics
+
+![Data science vs Bioinformatics.](images/DSBioinfo.png){fig-align="center"}
+
+**NIH**: "*Bioinformatics, as related to `genetics` and `genomics`, is a scientific subdiscipline that involves using computer technology to `collect`, `store`, `analyze` and `disseminate` biological data and information, such as DNA and amino acid sequences or annotations about those sequences*."
+
+## Bioinformatics
+
+[![](images/MultiOmics.png)](https://comics.dcv.fct.unl.pt/resources/)
+
+## RNAseq
+
+[![Advancing RNA-Seq analysis, Nature Biotechnology 28:421-423](images/RNAseqMappingAssembly.png)](https://learn.gencore.bio.nyu.edu/rna-seq-analysis/)
