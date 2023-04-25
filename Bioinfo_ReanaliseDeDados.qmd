@@ -9,20 +9,6 @@ format:
     css: style.css
 ---
 
-## Outline
-
-::: nonincremental
--   Motivação
-
--   Bases de dados
-
--   GEO2R
-
--   ArrayExpress
-
--   TCGA
-:::
-
 ## About me
 
 -   Medical Physicist (2011-2014);
@@ -43,7 +29,7 @@ I started in 2013 during my undergraduate degree with protein structure.
 :::
 :::
 
-## Aboute me
+## About me
 
 -   Since 2015 I work focused on bone tissue, especially with cell-biomaterial interaction;
 
@@ -82,6 +68,12 @@ I started in 2013 during my undergraduate degree with protein structure.
 ![](images/transcript2.png)
 :::
 :::
+
+## Biological data - Databases
+
+![](images/personalData1.png)
+
+-   ![](images/personalData.png)
 
 ## Biological data - Databases
 
@@ -235,7 +227,8 @@ Why you `MUST` publish your data from high-throughput experiments?
 
 ## GEO-GEO2R
 
--   Considerações finais
+-   Multi Omics;
+-   GEO2R not available for all data;
 
 ## ArrayExpress
 
@@ -243,7 +236,7 @@ Why you `MUST` publish your data from high-throughput experiments?
 ::: {.column width="50%"}
 -   ArrayExpress;
 
--   EBI;
+-   EBI-EMBL;
 
 -   76.801 datasets;
 
@@ -327,13 +320,249 @@ Why you `MUST` publish your data from high-throughput experiments?
 
     -   `{AnnotationDbi}`;
 
+    -   `{org.Hs.eg.db}` -varies for each analyzed organism;
+
     -   `{tidyverse}*`;
 :::
 :::
 
 ## ArrayExpress
 
+-   Import the data (`{readr}`);
+
+-   `ExpMat`: ExpressionMatrix or `assayData`;
+
+    -   Numeric matrix;
+
+-   `adf` : Array description file or `featureData`:
+
+    -   Data.frame;
+
+-   `sdf` : Sample description file or `phenoData`;
+
+    -   Data.frame.
+
+## ArrayExpress
+
+-   Data cleaning;
+
+-   **Golden rule**:
+
+    -   number of `ExpMat` rows equals the number of `adf` rows.
+
+    -   row names and row order of `ExpMat` equals of `adf` rows.
+
+    -   number of `ExpMat` columns equals the number of `sdf` rows.
+
+    -   column names and order of `ExpMat` equals of `sdf` rows.
+
+## ArrayExpress {.nonincremental}
+
+-   ExpressionSet: R object from the `{Biobase}`;
+
+-   `AnnotatedDataFrame` function on `adf` and `sdf`;
+
+    ```{r, eval = FALSE, echo = TRUE}
+    adf_final <- Biobase::AnnotatedDataFrame(adf)
+    sdrf_final <- Biobase::AnnotatedDataFrame(sdf)
+
+    eset <- ExpressionSet(assayData = ExpMat,
+                          phenoData = sdf_final,
+                          featureData = adf_final)
+    ```
+
+-   
+
+    -   
+
+        ```{r,eval = FALSE, echo = TRUE}
+          exprs(eset) # extract the expression matrix
+          pData(eset) # extract the pheno data
+          fData(eset) # extract the feature data
+        ```
+
+## ArrayExpress {.nonincremental}
+
+`LIMMA`
+
+-   Quality control: `plotDensities()`, PCA;
+
+-   Background correction: `backgroundCorrect()` ;
+
+-   Normalization: `normalizeBetweenArrays()`;
+
+    ```{r, eval=FALSE, echo=TRUE}
+    exprs(eset) <- normalizeBetweenArrays(exprs(eset),
+                                          method = "vsn")
+    ```
+
+## ArrayExpress {.nonincremental}
+
+`LIMMA` - differential expression
+
+-   Create a design: `model.matrix()`;
+
+-   Fit the data: `lmFit()`;
+
+-   Make the contrast: `makeContrasts()`;
+
+-   Fit the contrast: `contrasts.fit()`;
+
+-   Compute the statistic: `eBayes()`;
+
+    ```{r, eval=FALSE, echo=TRUE}
+    design <- model.matrix(~ 0 + pData(eset)$factor)
+
+    fit <- lmFit(exprs(eset),
+                design)
+
+    cm <- makeContrasts(c1 = "factor1 - factor2",
+                        levels = design)
+
+    fit2 <- contrasts.fit(fit, cm)
+
+    fit2 <- eBayes(fit2)
+    ```
+
+## ArrayExpress
+
+`LIMMA` - differential expression
+
+-   Extract the differential expressed genes table: `topTable()`;
+
+    ```{r, eval=FALSE, echo=TRUE}
+    topTable(fit2,
+             coef = 1,
+             adjust.method = "BH",#Benjamin hocheback - FDR
+             number = Inf #show all genes
+             )
+    ```
+
+## ArrayExpress
+
+![](images/arrayExpress10.png)
+
 ## TCGA
+
+::: columns
+::: {.column width="70%"}
+[![](images/tcga.png)](https://www.cancer.gov/ccg/research/genome-sequencing/tcga)
+:::
+
+::: {.column width="30%"}
+-   SNPs;
+
+-   RNAseq;
+
+-   miRNAseq;
+
+-   Methylation;
+
+-   Survival Analysis;
+:::
+:::
+
+## TCGA
+
+-   `{TCGABiolinks}`;
+
+-   R Package;
+
+-   Facilitates data access and analysis.
+
+## TCGA
+
+miRNA example - Pancreatic Ductal Adenocarcinoma Study
+
+```{r, eval=FALSE, echo=TRUE}
+CancerProject <- "TCGA-PAAD"
+DataDirectory <- paste0("/GDC/",gsub("-","_",CancerProject))
+FileNameData <- paste0(DataDirectory, "_","miRNA_gene_quantification",".rda")
+
+query.miR <- GDCquery(project = CancerProject, 
+                      data.category = "Transcriptome Profiling",
+                      data.type = "miRNA Expression Quantification",
+                      #file.type = "hg19.mirna",
+                      legacy = FALSE)
+```
+
+## TCGA
+
+```{r, eval=FALSE, echo=TRUE}
+samplesDown.miR <- getResults(query.miR,cols=c("cases"))
+
+dataSmTP.miR <- TCGAquery_SampleTypes(barcode = samplesDown.miR,
+                                      typesample = "TP")
+
+dataSmNT.miR <- TCGAquery_SampleTypes(barcode = samplesDown.miR,
+                                      typesample = "NT")
+
+
+queryDown.miR <- GDCquery(project = CancerProject, 
+                          data.category = "Transcriptome Profiling",
+                          data.type = "miRNA Expression Quantification",
+                          #file.type = "hg19.mirna",
+                          legacy = FALSE,
+                          barcode = c(dataSmTP.miR, dataSmNT.miR))
+```
+
+## TCGA
+
+```{r, eval=FALSE, echo=TRUE}
+GDCdownload(query = queryDown.miR,
+            directory = DataDirectory)
+
+dataAssy.miR <- GDCprepare(query = queryDown.miR, 
+                           save = TRUE, 
+                           save.filename = FileNameData, 
+                           summarizedExperiment = TRUE,
+                           directory =DataDirectory )
+
+rownames(dataAssy.miR) <- dataAssy.miR$miRNA_ID
+```
+
+## TCGA
+
+```{r, eval=FALSE, echo=TRUE}
+# using read_count's data 
+read_countData <-  colnames(dataAssy.miR)[grep("count", colnames(dataAssy.miR))]
+dataAssy.miR <- dataAssy.miR[,read_countData]
+colnames(dataAssy.miR) <- gsub("read_count_","", colnames(dataAssy.miR))
+
+dataFilt <- TCGAanalyze_Filtering(tabDF = dataAssy.miR,
+                                  method = "quantile", 
+                                  qnt.cut =  0.25)   
+
+dataDEGs <- TCGAanalyze_DEA(mat1 = dataFilt[,dataSmNT.miR],
+                            mat2 = dataFilt[,dataSmTP.miR],
+                            Cond1type = "Normal",
+                            Cond2type = "Tumor",
+                            fdr.cut = 0.01 ,
+                            logFC.cut = 1,
+                            method = "glmLRT") 
+```
+
+## TCGA
+
+![](images/tcga1.png){fig-align="center"}
+
+## Next steps (suggestions)
+
+-   Enrichment analysis: `{clusterProfiler}`
+
+    -   Gene Onology;
+
+    -   KEGG pathways;
+
+-   Gene set enrichment: `{fGSEA}`, `{GSVA}`
+
+    -   Molecular signatures database ([msigdb](https://www.gsea-msigdb.org/gsea/msigdb/index.jsp));
+
+    -   [Harmonizome](https://maayanlab.cloud/Harmonizome/);
+
+-   Network interactions
+
+    -   [STRING-DB](https://string-db.org/);
 
 ## Thanks you! {.center}
 
@@ -363,4 +592,6 @@ Marcel Ferreira, PhD (\@marceelrf)
 -   https://home.proffernandamaciel.com.br/
 
 -   https://sydney-informatics-hub.github.io/training-RNAseq-slides/01_IntroductionToRNASeq/01_IntroductionToRNASeq.html#1
+
+-   https://bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf
 :::
