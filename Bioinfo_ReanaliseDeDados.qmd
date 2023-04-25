@@ -1,15 +1,12 @@
 ---
-title: "Reanálise de dados"
+title: "Data Reanalysis"
 author: "Marcel Ferreira"
 date: "`r Sys.Date()`"
 format:
   revealjs:
     incremental: true
-<<<<<<< HEAD
     embed-resources: true
     css: style.css
-=======
->>>>>>> b716713c5ef6e2375f00da8a0081abfb6040d5b2
 ---
 
 ## Outline
@@ -68,10 +65,23 @@ I started in 2013 during my undergraduate degree with protein structure.
 
 **NIH**: "*Bioinformatics, as related to `genetics` and `genomics`, is a scientific subdiscipline that involves using computer technology to `collect`, `store`, `analyze` and `disseminate` biological data and information, such as DNA and amino acid sequences or annotations about those sequences*."
 
-<<<<<<< HEAD
 ## Biological data
 
 [![](images/MultiOmics.png)](https://comics.dcv.fct.unl.pt/resources/)
+
+## Biological data
+
+::: columns
+::: {.column width="50%"}
+![]()
+
+![](images/transcript1.png)
+:::
+
+::: {.column width="50%"}
+![](images/transcript2.png)
+:::
+:::
 
 ## Biological data - Databases
 
@@ -119,6 +129,10 @@ Why you `MUST` publish your data from high-throughput experiments?
 
 ## RNAseq
 
+[![](images/RNAseqMappingAssembly2.png)](https://sydney-informatics-hub.github.io/training-RNAseq-slides/01_IntroductionToRNASeq/01_IntroductionToRNASeq.html#4)
+
+## RNAseq
+
 [![Advancing RNA-Seq analysis, Nature Biotechnology 28:421-423](images/RNAseqMappingAssembly.png)](https://learn.gencore.bio.nyu.edu/rna-seq-analysis/)
 
 ## GEO-GEO2R
@@ -145,12 +159,181 @@ Why you `MUST` publish your data from high-throughput experiments?
 
 ::: columns
 ::: {.column width="50%"}
+-   [GEO2R](https://www.ncbi.nlm.nih.gov/geo/geo2r/) is an interactive web tool that allows users to compare two or more groups of Samples in a GEO Series in order to identify genes that are differentially expressed across experimental conditions.
+
+-   Microarray - `LIMMA`;
+
+-   RNAseq - `DeSeq2`(**BETA**);
 :::
 
 ::: {.column width="50%"}
 [![Gene Expression Omnibus](images/geo.png){fig-align="center" width="450"}](https://www.ncbi.nlm.nih.gov/geo/)
 :::
 :::
+
+## GEO-GEO2R
+
+`Query`: "**osteogenesis**"/ "**mus musculus**"/ "**Expression profilling by array**";
+
+![](images/geo1.png)
+
+## GEO-GEO2R
+
+![](images/geo2.png)
+
+## GEO-GEO2R
+
+![](images/geo3.png)
+
+## GEO-GEO2R
+
+![](images/geo4.png)
+
+## GEO-GEO2R
+
+![](images/geo5.png)
+
+## GEO-GEO2R
+
+![](images/geo6.png)
+
+## GEO-GEO2R
+
+![](images/geo7.png)
+
+## GEO-GEO2R
+
+![](images/geo8.png)
+
+## GEO-GEO2R
+
+![](images/geo9.png)
+
+## GEO-GEO2R
+
+![](images/geo10.png)
+
+## GEO-GEO2R
+
+![](images/geo11.png)
+
+## GEO-GEO2R
+
+![](images/geo12.png){fig-align="center"}
+
+## GEO-GEO2R
+
+![](images/geo13.png)
+
+## GEO-GEO2R
+
+![](images/geo14.png){fig-align="center"}
+
+## GEO-GEO2R
+
+![](images/geo15.png){fig-align="center"}
+
+## GEO-GEO2R
+
+-   Considerações finais
+
+## ArrayExpress
+
+::: columns
+::: {.column width="50%"}
+-   ArrayExpress;
+
+-   EBI;
+
+-   76.801 datasets;
+
+-   Multiple species;
+
+-   Array- and sequence-based data are accepted;
+
+-   No tool for analysis;
+:::
+
+::: {.column width="50%"}
+[![ArrayExpress](images/arrayExpress.png)](https://www.ebi.ac.uk/biostudies/arrayexpress/studies)
+:::
+:::
+
+## ArrayExpress
+
+![](images/arrayExpress1.png){fig-align="center"}
+
+## ArrayExpress
+
+![](images/arrayExpress2.png){fig-align="center"}
+
+## ArrayExpress
+
+![](images/arrayExpress3.png)
+
+## ArrayExpress
+
+![](images/arrayExpress4.png)
+
+## ArrayExpress
+
+![](images/arrayExpress5.png){fig-align="center"}
+
+## ArrayExpress
+
+![](images/arrayExpress6.png)
+
+## ArrayExpress
+
+![](images/arrayExpress7.png)
+
+## ArrayExpress
+
+-   Data matrix (Or Expression matrix):
+
+    -   Values of counts read by the equipment;
+
+    -   Processed OR not;
+
+-   Investigation Design Format (**IDF**):
+
+    -   Set of protocols for this experiment;
+
+-   Sample and Data Relationship Format (**SDRF**):
+
+    -   Metadata about the samples;
+
+-   Array Designs Format (**ADF**);
+
+    -   Information about the probes;
+
+## ArrayExpress
+
+::: columns
+::: {.column width="50%"}
+[![R and Bioconductor](images/arrayExpress9.png)](https://bioconductor.org/)
+:::
+
+::: {.column width="50%"}
+-   R programming language;
+
+-   Bioconductor is a repository of bioinformatic packages;
+
+-   For this type of analysis:
+
+    -   `{Biobase}`;
+
+    -   `{Limma}`, `{edgeR}` or `{DESeq}`;
+
+    -   `{AnnotationDbi}`;
+
+    -   `{tidyverse}*`;
+:::
+:::
+
+## ArrayExpress
+
+## TCGA
 
 ## Thanks you! {.center}
 
@@ -159,7 +342,7 @@ Marcel Ferreira, PhD (\@marceelrf)
 :::
 
 |                                                  |                                      |                                     |
-|--------------------------------------------------|--------------------------------------|-------------------------------------|
+|----------------------------|----------------------|----------------------|
 | ![](images/Instagram_icon.png.webp){width="180"} | ![](images/twitter.jpg){width="200"} | ![](images/github.png){width="200"} |
 
 <https://quartodomarcel.netlify.app/>
@@ -178,13 +361,6 @@ Marcel Ferreira, PhD (\@marceelrf)
 -   https://www.youtube.com/watch?v=tlf6wYJrwKY
 
 -   https://home.proffernandamaciel.com.br/
+
+-   https://sydney-informatics-hub.github.io/training-RNAseq-slides/01_IntroductionToRNASeq/01_IntroductionToRNASeq.html#1
 :::
-=======
-## Bioinformatics
-
-[![](images/MultiOmics.png)](https://comics.dcv.fct.unl.pt/resources/)
-
-## RNAseq
-
-[![Advancing RNA-Seq analysis, Nature Biotechnology 28:421-423](images/RNAseqMappingAssembly.png)](https://learn.gencore.bio.nyu.edu/rna-seq-analysis/)
->>>>>>> b716713c5ef6e2375f00da8a0081abfb6040d5b2
