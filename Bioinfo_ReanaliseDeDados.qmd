@@ -571,7 +571,7 @@ Marcel Ferreira, PhD (\@marceelrf)
 :::
 
 |                                                  |                                      |                                     |
-|----------------------------|----------------------|----------------------|
+|--------------------------------------------------|--------------------------------------|-------------------------------------|
 | ![](images/Instagram_icon.png.webp){width="180"} | ![](images/twitter.jpg){width="200"} | ![](images/github.png){width="200"} |
 
 <https://quartodomarcel.netlify.app/>
